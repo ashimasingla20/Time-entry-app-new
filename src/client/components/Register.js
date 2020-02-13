@@ -77,15 +77,26 @@ class Register extends React.Component {
       <div>
         <h2>Register</h2>
         <form className="center-align" onSubmit={this.handleSubmit}>
-          <label>Name</label>
-          <input type="text" name="name" onChange={this.handleChange} required/>
-          <label>Email</label>
-          <input type="email" name="email" onChange={this.handleChange} required/>
-          <label>Password</label>
-          <input type="password" name="password" onChange={this.handleChange} required/>
-          <label>Confirm Password</label>
-          <input type="password" name="passwordConfirmation" onChange={this.handleChange} required/>
-          <button type="submit" >Register</button>
+          <div style={{'marginBottom': '20px'}}> 
+            <label>Name</label>
+            <input type="text" name="name" onChange={this.handleChange} required/>
+          </div>
+          <div style={{'marginBottom': '20px'}}>
+            <label>Email</label>
+            <input type="email" name="email" onChange={this.handleChange} required/>
+          </div>
+          <div style={{'marginBottom': '20px'}}>
+            <label>Password</label>
+            <input type="password" name="password" onChange={this.handleChange} required/>
+          </div>
+          <div style={{'marginBottom': '20px'}}>
+            <label>Confirm Password</label>
+            <input type="password" name="passwordConfirmation" onChange={this.handleChange} required/>
+          </div>
+          <button type="submit" style={{background: '#53b2fe',
+              padding: '10px',
+              border: '0',
+              'borderRadius': '5px'}}>Register</button>
         </form>
         {errors.length > 0 && (
             <div>

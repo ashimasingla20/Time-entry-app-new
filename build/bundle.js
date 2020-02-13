@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -77,16 +77,22 @@ module.exports = require("react-router-dom");
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports) {
+
+module.exports = require("axios");
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _express = __webpack_require__(3);
+var _express = __webpack_require__(4);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _renderer = __webpack_require__(4);
+var _renderer = __webpack_require__(5);
 
 var _renderer2 = _interopRequireDefault(_renderer);
 
@@ -109,13 +115,13 @@ app.listen(3000, function () {
 });
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports) {
 
 module.exports = require("express");
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -129,13 +135,13 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(5);
+var _server = __webpack_require__(6);
 
-var _Home = __webpack_require__(6);
+var _Home = __webpack_require__(7);
 
 var _Home2 = _interopRequireDefault(_Home);
 
-var _Routes = __webpack_require__(7);
+var _Routes = __webpack_require__(8);
 
 var _Routes2 = _interopRequireDefault(_Routes);
 
@@ -153,13 +159,13 @@ exports.default = function (req) {
 };
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -196,7 +202,7 @@ var Home = function Home() {
 exports.default = Home;
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -212,11 +218,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(1);
 
-var _Login = __webpack_require__(8);
+var _Login = __webpack_require__(9);
 
 var _Login2 = _interopRequireDefault(_Login);
 
-var _Register = __webpack_require__(9);
+var _Register = __webpack_require__(10);
 
 var _Register2 = _interopRequireDefault(_Register);
 
@@ -243,7 +249,7 @@ exports.default = function () {
 };
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -261,7 +267,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _axios = __webpack_require__(10);
+var _axios = __webpack_require__(2);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -346,20 +352,31 @@ var Login = function (_React$Component) {
           'form',
           { className: 'center-align', onSubmit: this.handleSubmit },
           _react2.default.createElement(
-            'label',
-            null,
-            'Email'
+            'div',
+            { style: { 'marginBottom': '20px' } },
+            _react2.default.createElement(
+              'label',
+              null,
+              'Email'
+            ),
+            _react2.default.createElement('input', { type: 'text', name: 'email', onChange: this.handleChange })
           ),
-          _react2.default.createElement('input', { type: 'text', name: 'email', onChange: this.handleChange }),
           _react2.default.createElement(
-            'label',
-            null,
-            'Password'
+            'div',
+            { style: { 'marginBottom': '20px' } },
+            _react2.default.createElement(
+              'label',
+              null,
+              'Password'
+            ),
+            _react2.default.createElement('input', { type: 'password', name: 'password', onChange: this.handleChange })
           ),
-          _react2.default.createElement('input', { type: 'password', name: 'password', onChange: this.handleChange }),
           _react2.default.createElement(
             'button',
-            { type: 'submit' },
+            { type: 'submit', style: { background: '#53b2fe',
+                padding: '10px',
+                border: '0',
+                'borderRadius': '5px' } },
             'Login'
           )
         ),
@@ -394,7 +411,7 @@ var Login = function (_React$Component) {
 exports.default = (0, _reactRouterDom.withRouter)(Login);
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -412,7 +429,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _axios = __webpack_require__(10);
+var _axios = __webpack_require__(2);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -533,32 +550,51 @@ var Register = function (_React$Component) {
           'form',
           { className: 'center-align', onSubmit: this.handleSubmit },
           _react2.default.createElement(
-            'label',
-            null,
-            'Name'
+            'div',
+            { style: { 'marginBottom': '20px' } },
+            _react2.default.createElement(
+              'label',
+              null,
+              'Name'
+            ),
+            _react2.default.createElement('input', { type: 'text', name: 'name', onChange: this.handleChange, required: true })
           ),
-          _react2.default.createElement('input', { type: 'text', name: 'name', onChange: this.handleChange, required: true }),
           _react2.default.createElement(
-            'label',
-            null,
-            'Email'
+            'div',
+            { style: { 'marginBottom': '20px' } },
+            _react2.default.createElement(
+              'label',
+              null,
+              'Email'
+            ),
+            _react2.default.createElement('input', { type: 'email', name: 'email', onChange: this.handleChange, required: true })
           ),
-          _react2.default.createElement('input', { type: 'email', name: 'email', onChange: this.handleChange, required: true }),
           _react2.default.createElement(
-            'label',
-            null,
-            'Password'
+            'div',
+            { style: { 'marginBottom': '20px' } },
+            _react2.default.createElement(
+              'label',
+              null,
+              'Password'
+            ),
+            _react2.default.createElement('input', { type: 'password', name: 'password', onChange: this.handleChange, required: true })
           ),
-          _react2.default.createElement('input', { type: 'password', name: 'password', onChange: this.handleChange, required: true }),
           _react2.default.createElement(
-            'label',
-            null,
-            'Confirm Password'
+            'div',
+            { style: { 'marginBottom': '20px' } },
+            _react2.default.createElement(
+              'label',
+              null,
+              'Confirm Password'
+            ),
+            _react2.default.createElement('input', { type: 'password', name: 'passwordConfirmation', onChange: this.handleChange, required: true })
           ),
-          _react2.default.createElement('input', { type: 'password', name: 'passwordConfirmation', onChange: this.handleChange, required: true }),
           _react2.default.createElement(
             'button',
-            { type: 'submit' },
+            { type: 'submit', style: { background: '#53b2fe',
+                padding: '10px',
+                border: '0',
+                'borderRadius': '5px' } },
             'Register'
           )
         ),
@@ -593,12 +629,6 @@ var Register = function (_React$Component) {
 exports.default = Register;
 
 /***/ }),
-/* 10 */
-/***/ (function(module, exports) {
-
-module.exports = require("axios");
-
-/***/ }),
 /* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -617,7 +647,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _axios = __webpack_require__(10);
+var _axios = __webpack_require__(2);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -693,46 +723,57 @@ var AddTask = function (_React$Component) {
           'form',
           { className: 'center-align', onSubmit: this.handleSubmit },
           _react2.default.createElement(
-            'label',
-            null,
-            'Task Name'
+            'div',
+            { style: { 'marginBottom': '20px' } },
+            _react2.default.createElement(
+              'label',
+              null,
+              'Task Name'
+            ),
+            _react2.default.createElement('input', { type: 'text', name: 'name', onChange: this.handleChange })
           ),
-          _react2.default.createElement('input', { type: 'text', name: 'name', onChange: this.handleChange }),
           _react2.default.createElement(
-            'label',
-            null,
-            'Type'
-          ),
-          _react2.default.createElement(
-            'select',
-            { name: 'type', onChange: this.handleChange },
-            types.map(function (type, key) {
-              return _react2.default.createElement(
-                'option',
-                { value: type, key: 'type-' + key },
-                type
-              );
-            })
+            'div',
+            { style: { 'marginBottom': '20px' } },
+            _react2.default.createElement(
+              'label',
+              null,
+              'Type'
+            ),
+            _react2.default.createElement(
+              'select',
+              { name: 'type', onChange: this.handleChange },
+              types.map(function (type, key) {
+                return _react2.default.createElement(
+                  'option',
+                  { value: type, key: 'type-' + key },
+                  type
+                );
+              })
+            )
           ),
           _react2.default.createElement(
             'button',
-            { type: 'button', name: 'startTime', onClick: this.handleClick },
+            { style: { display: 'block', 'marginBottom': '20px' }, type: 'button', name: 'startTime', onClick: this.handleClick },
             'Start Time'
           ),
           _react2.default.createElement(
             'button',
-            { type: 'button', name: 'endTime', onClick: this.handleClick },
+            { style: { display: 'block', 'marginBottom': '20px' }, type: 'button', name: 'endTime', onClick: this.handleClick },
             'End Time'
           ),
           _react2.default.createElement(
             'button',
-            { type: 'submit' },
+            { style: { background: '#53b2fe',
+                padding: '10px',
+                border: '0',
+                'border-radius': '5px' }, type: 'submit' },
             'Submit'
           )
         ),
         _react2.default.createElement(
           'div',
-          null,
+          { style: { 'marginTop': '20px' } },
           'To view all tasks Go to ',
           _react2.default.createElement(
             _reactRouterDom.Link,
@@ -767,7 +808,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _axios = __webpack_require__(10);
+var _axios = __webpack_require__(2);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -781,7 +822,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var tableHeads = ['name', 'type', 'startTime', 'endTime'];
+var tableHeads = [{ name: 'name', colspan: 2 }, { name: 'type', colspan: 1 }, { name: 'startTime', colspan: '1' }, { name: 'endTime', colspan: 1 }];
 var TaskElement = function TaskElement(_ref) {
   var task = _ref.task;
 
@@ -790,22 +831,22 @@ var TaskElement = function TaskElement(_ref) {
     { key: task._id },
     _react2.default.createElement(
       'td',
-      null,
+      { colSpan: '2', style: { border: '1px solid #ddd' } },
       task.name
     ),
     _react2.default.createElement(
       'td',
-      null,
+      { colSpan: '1', style: { border: '1px solid #ddd' } },
       task.type
     ),
     _react2.default.createElement(
       'td',
-      null,
+      { colSpan: '1', style: { border: '1px solid #ddd' } },
       task.startTime
     ),
     _react2.default.createElement(
       'td',
-      null,
+      { colSpan: '1', style: { border: '1px solid #ddd' } },
       task.endTime
     )
   );
@@ -831,7 +872,6 @@ var Tasks = function (_React$Component) {
       var _this2 = this;
 
       var token = localStorage.getItem('token');
-      console.log(token);
       _axios2.default.get('http://localhost:4000/tasks', { headers: { "Authorization": 'Bearer ' + token } }).then(function (res) {
         var tasks = res.data;
         _this2.setState({ tasks: tasks });
@@ -852,7 +892,7 @@ var Tasks = function (_React$Component) {
         ),
         _react2.default.createElement(
           'table',
-          null,
+          { style: { width: '100%', 'borderCollapse': 'collapse' } },
           _react2.default.createElement(
             'thead',
             null,
@@ -862,8 +902,8 @@ var Tasks = function (_React$Component) {
               tableHeads.map(function (tableHead, index) {
                 return _react2.default.createElement(
                   'th',
-                  { key: 'tableHead-' + index + '}' },
-                  tableHead
+                  { colSpan: tableHead.colspan, style: { border: '1px solid #ddd' }, key: 'tableHead-' + index + '}' },
+                  tableHead.name
                 );
               })
             )
@@ -878,7 +918,7 @@ var Tasks = function (_React$Component) {
         ),
         _react2.default.createElement(
           'div',
-          null,
+          { style: { 'margin-top': '20px' } },
           'Want to add New Task ',
           _react2.default.createElement(
             _reactRouterDom.Link,
