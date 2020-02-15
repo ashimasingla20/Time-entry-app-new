@@ -517,6 +517,7 @@ var Register = function (_React$Component) {
           console.log(res);
           console.log(res.data);
           localStorage.setItem('token', res.data.token);
+          _this.props.history.push('/tasks');
         }).catch(function (err) {
           _this.setState({ errors: errors.concat(err) });
         });
@@ -626,7 +627,7 @@ var Register = function (_React$Component) {
 }(_react2.default.Component);
 
 ;
-exports.default = Register;
+exports.default = (0, _reactRouterDom.withRouter)(Register);
 
 /***/ }),
 /* 11 */
@@ -652,6 +653,10 @@ var _axios = __webpack_require__(2);
 var _axios2 = _interopRequireDefault(_axios);
 
 var _reactRouterDom = __webpack_require__(1);
+
+var _NavBar = __webpack_require__(14);
+
+var _NavBar2 = _interopRequireDefault(_NavBar);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -711,74 +716,80 @@ var AddTask = function (_React$Component) {
   _createClass(AddTask, [{
     key: 'render',
     value: function render() {
+      console.log(_NavBar2.default);
       return _react2.default.createElement(
         'div',
         null,
+        _react2.default.createElement(_NavBar2.default, null),
         _react2.default.createElement(
-          'h3',
+          'div',
           null,
-          ' Add Task'
-        ),
-        _react2.default.createElement(
-          'form',
-          { className: 'center-align', onSubmit: this.handleSubmit },
           _react2.default.createElement(
-            'div',
-            { style: { 'marginBottom': '20px' } },
-            _react2.default.createElement(
-              'label',
-              null,
-              'Task Name'
-            ),
-            _react2.default.createElement('input', { type: 'text', name: 'name', onChange: this.handleChange })
+            'h3',
+            null,
+            ' Add Task'
           ),
           _react2.default.createElement(
-            'div',
-            { style: { 'marginBottom': '20px' } },
+            'form',
+            { className: 'center-align', onSubmit: this.handleSubmit },
             _react2.default.createElement(
-              'label',
-              null,
-              'Type'
+              'div',
+              { style: { 'marginBottom': '20px' } },
+              _react2.default.createElement(
+                'label',
+                null,
+                'Task Name'
+              ),
+              _react2.default.createElement('input', { type: 'text', name: 'name', onChange: this.handleChange })
             ),
             _react2.default.createElement(
-              'select',
-              { name: 'type', onChange: this.handleChange },
-              types.map(function (type, key) {
-                return _react2.default.createElement(
-                  'option',
-                  { value: type, key: 'type-' + key },
-                  type
-                );
-              })
+              'div',
+              { style: { 'marginBottom': '20px' } },
+              _react2.default.createElement(
+                'label',
+                null,
+                'Type'
+              ),
+              _react2.default.createElement(
+                'select',
+                { name: 'type', onChange: this.handleChange },
+                types.map(function (type, key) {
+                  return _react2.default.createElement(
+                    'option',
+                    { value: type, key: 'type-' + key },
+                    type
+                  );
+                })
+              )
+            ),
+            _react2.default.createElement(
+              'button',
+              { style: { display: 'block', 'marginBottom': '20px' }, type: 'button', name: 'startTime', onClick: this.handleClick },
+              'Start Time'
+            ),
+            _react2.default.createElement(
+              'button',
+              { style: { display: 'block', 'marginBottom': '20px' }, type: 'button', name: 'endTime', onClick: this.handleClick },
+              'End Time'
+            ),
+            _react2.default.createElement(
+              'button',
+              { style: { background: '#53b2fe',
+                  padding: '10px',
+                  border: '0',
+                  'borderRadius': '5px' }, type: 'submit' },
+              'Submit'
             )
           ),
           _react2.default.createElement(
-            'button',
-            { style: { display: 'block', 'marginBottom': '20px' }, type: 'button', name: 'startTime', onClick: this.handleClick },
-            'Start Time'
-          ),
-          _react2.default.createElement(
-            'button',
-            { style: { display: 'block', 'marginBottom': '20px' }, type: 'button', name: 'endTime', onClick: this.handleClick },
-            'End Time'
-          ),
-          _react2.default.createElement(
-            'button',
-            { style: { background: '#53b2fe',
-                padding: '10px',
-                border: '0',
-                'border-radius': '5px' }, type: 'submit' },
-            'Submit'
-          )
-        ),
-        _react2.default.createElement(
-          'div',
-          { style: { 'marginTop': '20px' } },
-          'To view all tasks Go to ',
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/tasks' },
-            'See All Tasks'
+            'div',
+            { style: { 'marginTop': '20px' } },
+            'To view all tasks Go to ',
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/tasks' },
+              'See All Tasks'
+            )
           )
         )
       );
@@ -811,6 +822,10 @@ var _react2 = _interopRequireDefault(_react);
 var _axios = __webpack_require__(2);
 
 var _axios2 = _interopRequireDefault(_axios);
+
+var _NavBar = __webpack_require__(14);
+
+var _NavBar2 = _interopRequireDefault(_NavBar);
 
 var _reactRouterDom = __webpack_require__(1);
 
@@ -885,6 +900,7 @@ var Tasks = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
+        _react2.default.createElement(_NavBar2.default, null),
         _react2.default.createElement(
           'h3',
           null,
@@ -918,7 +934,7 @@ var Tasks = function (_React$Component) {
         ),
         _react2.default.createElement(
           'div',
-          { style: { 'margin-top': '20px' } },
+          { style: { 'marginTop': '20px' } },
           'Want to add New Task ',
           _react2.default.createElement(
             _reactRouterDom.Link,
@@ -941,6 +957,88 @@ exports.default = Tasks;
 /***/ (function(module, exports) {
 
 module.exports = require("cors");
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _reactRouterDom = __webpack_require__(1);
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var NavBar = function (_React$Component) {
+  _inherits(NavBar, _React$Component);
+
+  function NavBar(props) {
+    _classCallCheck(this, NavBar);
+
+    var _this = _possibleConstructorReturn(this, (NavBar.__proto__ || Object.getPrototypeOf(NavBar)).call(this, props));
+
+    _this.handleLogout = function () {
+      localStorage.removeItem("token");
+      _this.props.history.push('/login');
+    };
+
+    return _this;
+  }
+
+  _createClass(NavBar, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'nav',
+        { style: { display: 'flex', justifyContent: 'flex-end', borderBottom: '1px solid rgba(0,0,0,0.1)' } },
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: '/tasks', style: { margin: '20px 20px 20px 20px',
+              textDecoration: 'none',
+              fontSize: '18px',
+              color: 'rgba(0,0,0,0.6)' } },
+          'Tasks'
+        ),
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: '/addTask', style: { margin: '20px 20px 20px 20px',
+              textDecoration: 'none',
+              fontSize: '18px',
+              color: 'rgba(0,0,0,0.6)' } },
+          'Add Task'
+        ),
+        _react2.default.createElement(
+          'button',
+          { onClick: this.handleLogout, style: { border: '0px',
+              fontSize: '18px',
+              color: 'rgba(0,0,0,0.6)',
+              fontWeight: 'normal' } },
+          'Logout'
+        )
+      );
+    }
+  }]);
+
+  return NavBar;
+}(_react2.default.Component);
+
+exports.default = (0, _reactRouterDom.withRouter)(NavBar);
 
 /***/ })
 /******/ ]);
