@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import NavBar from './NavBar';
 import { Link } from 'react-router-dom';
 const tableHeads =[{name:'name', colspan:2},{name:'type', colspan:1},{name:'startTime', colspan:'1'},{name:'endTime', colspan:1}];
 const TaskElement = ({task}) => {
@@ -28,6 +29,7 @@ class Tasks extends React.Component {
   render() {
     const {tasks} = this.state;
     return (<div>
+      <NavBar/>
       <h3>All Tasks</h3>
       <table style={{width:'100%','borderCollapse':'collapse'}}>
         <thead>
@@ -39,7 +41,7 @@ class Tasks extends React.Component {
           { tasks.map((task, index) => <TaskElement task={task} key={`task-${index}`}/>)}
         </tbody>
       </table>
-      <div style={{'margin-top': '20px'}}>
+      <div style={{'marginTop': '20px'}}>
         Want to add New Task <Link to="/addTask">Add Task</Link>
       </div>
     </div>);

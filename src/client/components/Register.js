@@ -1,6 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import {
+	withRouter
+} from 'react-router-dom';
 class Register extends React.Component {
   constructor(props) {
     super(props);
@@ -65,7 +68,8 @@ class Register extends React.Component {
       .then(res => {
         console.log(res);
         console.log(res.data);
-        localStorage.setItem('token', res.data.token)
+        localStorage.setItem('token', res.data.token);
+        this.props.history.push('/tasks');
       }).catch(err => {
         this.setState({ errors: errors.concat(err) });
       })
@@ -112,4 +116,4 @@ class Register extends React.Component {
     );
   }
 };
-export default Register;
+export default withRouter(Register);
