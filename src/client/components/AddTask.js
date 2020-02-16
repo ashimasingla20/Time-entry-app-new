@@ -24,7 +24,10 @@ class AddTask extends React.Component {
   }
   handleClick =(event) => {
     let ts = new Date(Date.now());
-    this.setState({ [event.target.name] : ts });
+    let timerStarted = event.target.name == "startTime"
+      ? true
+      : false;
+    this.setState({ [event.target.name] : ts, timerStarted: timerStarted });
   }
   handleChange = (event) => {
     this.setState({ [event.target.name] : event.target.value });
@@ -53,7 +56,7 @@ class AddTask extends React.Component {
 
   }
   render() {
-    const { isAuth, isLoading } = this.state;
+    const { isAuth, isLoading, timerStarted } = this.state;
     if(isLoading) {
       return null;
     }
@@ -86,6 +89,7 @@ class AddTask extends React.Component {
                   border: '0',
                   'borderRadius': '5px'}} type="submit">Submit</button>
           </form>
+          {timerStarted ? <span>Timer started ....</span> : ''}
           <div style={{'marginTop': '20px'}}>
             To view all tasks Go to <Link to="/tasks">See All Tasks</Link>
           </div>
