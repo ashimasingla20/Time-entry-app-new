@@ -66,12 +66,15 @@ class Register extends React.Component {
       }
       axios.post(`http://localhost:4000/register`, { ...user })
       .then(res => {
-        console.log(res);
-        console.log(res.data);
-        localStorage.setItem('token', res.data.token);
-        this.props.history.push('/tasks');
+        if(res.message) {
+          console.log('here');
+          this.setState({ errors: [{'messge': res.message}] });
+        } else {
+          localStorage.setItem('token', res.data.token);
+          this.props.history.push('/tasks');
+        }
       }).catch(err => {
-        this.setState({ errors: errors.concat(err) });
+        this.setState({ errors: [{message: err.response.data.message}] });
       })
     }
   }

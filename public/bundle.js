@@ -39657,12 +39657,15 @@ var Register = function (_React$Component) {
           password: _this.state.password
         };
         _axios2.default.post('http://localhost:4000/register', _extends({}, user)).then(function (res) {
-          console.log(res);
-          console.log(res.data);
-          localStorage.setItem('token', res.data.token);
-          _this.props.history.push('/tasks');
+          if (res.message) {
+            console.log('here');
+            _this.setState({ errors: [{ 'messge': res.message }] });
+          } else {
+            localStorage.setItem('token', res.data.token);
+            _this.props.history.push('/tasks');
+          }
         }).catch(function (err) {
-          _this.setState({ errors: errors.concat(err) });
+          _this.setState({ errors: [{ message: err.response.data.message }] });
         });
       }
     };
@@ -39851,91 +39854,114 @@ var AddTask = function (_React$Component) {
       name: '',
       type: '',
       startTime: null,
-      endTime: null
+      endTime: null,
+      isAuth: false,
+      isLoading: true
     };
     return _this;
   }
 
   _createClass(AddTask, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var token = localStorage.getItem('token');
+      this.setState({
+        isAuth: token ? true : false,
+        isLoading: false
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
-      console.log(_NavBar2.default);
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(_NavBar2.default, null),
-        _react2.default.createElement(
+      var _state = this.state,
+          isAuth = _state.isAuth,
+          isLoading = _state.isLoading;
+
+      if (isLoading) {
+        return null;
+      }
+      if (!isAuth) {
+        return _react2.default.createElement(_reactRouterDom.Redirect, { to: {
+            pathname: '/login'
+          } });
+      } else {
+        return _react2.default.createElement(
           'div',
           null,
+          _react2.default.createElement(_NavBar2.default, null),
           _react2.default.createElement(
-            'h3',
+            'div',
             null,
-            ' Add Task'
-          ),
-          _react2.default.createElement(
-            'form',
-            { className: 'center-align', onSubmit: this.handleSubmit },
             _react2.default.createElement(
-              'div',
-              { style: { 'marginBottom': '20px' } },
-              _react2.default.createElement(
-                'label',
-                null,
-                'Task Name'
-              ),
-              _react2.default.createElement('input', { type: 'text', name: 'name', onChange: this.handleChange })
+              'h3',
+              null,
+              ' Add Task'
             ),
             _react2.default.createElement(
-              'div',
-              { style: { 'marginBottom': '20px' } },
+              'form',
+              { className: 'center-align', onSubmit: this.handleSubmit },
               _react2.default.createElement(
-                'label',
-                null,
-                'Type'
+                'div',
+                { style: { 'marginBottom': '20px' } },
+                _react2.default.createElement(
+                  'label',
+                  null,
+                  'Task Name'
+                ),
+                _react2.default.createElement('input', { type: 'text', name: 'name', onChange: this.handleChange })
               ),
               _react2.default.createElement(
-                'select',
-                { name: 'type', onChange: this.handleChange },
-                types.map(function (type, key) {
-                  return _react2.default.createElement(
-                    'option',
-                    { value: type, key: 'type-' + key },
-                    type
-                  );
-                })
+                'div',
+                { style: { 'marginBottom': '20px' } },
+                _react2.default.createElement(
+                  'label',
+                  null,
+                  'Type'
+                ),
+                _react2.default.createElement(
+                  'select',
+                  { name: 'type', onChange: this.handleChange },
+                  types.map(function (type, key) {
+                    return _react2.default.createElement(
+                      'option',
+                      { value: type, key: 'type-' + key },
+                      type
+                    );
+                  })
+                )
+              ),
+              _react2.default.createElement(
+                'button',
+                { style: { display: 'block', 'marginBottom': '20px' }, type: 'button', name: 'startTime', onClick: this.handleClick },
+                'Start Time'
+              ),
+              _react2.default.createElement(
+                'button',
+                { style: { display: 'block', 'marginBottom': '20px' }, type: 'button', name: 'endTime', onClick: this.handleClick },
+                'End Time'
+              ),
+              _react2.default.createElement(
+                'button',
+                { style: { background: '#53b2fe',
+                    padding: '10px',
+                    border: '0',
+                    'borderRadius': '5px' }, type: 'submit' },
+                'Submit'
               )
             ),
             _react2.default.createElement(
-              'button',
-              { style: { display: 'block', 'marginBottom': '20px' }, type: 'button', name: 'startTime', onClick: this.handleClick },
-              'Start Time'
-            ),
-            _react2.default.createElement(
-              'button',
-              { style: { display: 'block', 'marginBottom': '20px' }, type: 'button', name: 'endTime', onClick: this.handleClick },
-              'End Time'
-            ),
-            _react2.default.createElement(
-              'button',
-              { style: { background: '#53b2fe',
-                  padding: '10px',
-                  border: '0',
-                  'borderRadius': '5px' }, type: 'submit' },
-              'Submit'
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { style: { 'marginTop': '20px' } },
-            'To view all tasks Go to ',
-            _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/tasks' },
-              'See All Tasks'
+              'div',
+              { style: { 'marginTop': '20px' } },
+              'To view all tasks Go to ',
+              _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/tasks' },
+                'See All Tasks'
+              )
             )
           )
-        )
-      );
+        );
+      }
     }
   }]);
 
@@ -40016,11 +40042,16 @@ var Tasks = function (_React$Component) {
   function Tasks(props) {
     _classCallCheck(this, Tasks);
 
+    // const token = localStorage.getItem('token');
+    // console.log(token);
     var _this = _possibleConstructorReturn(this, (Tasks.__proto__ || Object.getPrototypeOf(Tasks)).call(this, props));
 
     _this.state = {
-      tasks: []
+      tasks: [],
+      isAuth: false,
+      isLoading: true
     };
+    _this._isMounted = false;
     return _this;
   }
 
@@ -40029,63 +40060,87 @@ var Tasks = function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
+      this._isMounted = true;
       var token = localStorage.getItem('token');
-      _axios2.default.get('http://localhost:4000/tasks', { headers: { "Authorization": 'Bearer ' + token } }).then(function (res) {
-        var tasks = res.data;
-        _this2.setState({ tasks: tasks });
+      this.setState({
+        isAuth: token ? true : false,
+        isLoading: false
       });
+      if (this._isMounted) {
+        _axios2.default.get('http://localhost:4000/tasks', { headers: { "Authorization": 'Bearer ' + token } }).then(function (res) {
+          var tasks = res.data;
+          _this2.setState({ tasks: tasks });
+        });
+      }
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      this._isMounted = false;
     }
   }, {
     key: 'render',
     value: function render() {
-      var tasks = this.state.tasks;
+      var _state = this.state,
+          tasks = _state.tasks,
+          isAuth = _state.isAuth,
+          isLoading = _state.isLoading;
 
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(_NavBar2.default, null),
-        _react2.default.createElement(
-          'h3',
+      if (isLoading) {
+        return null;
+      }
+      if (!isAuth) {
+        return _react2.default.createElement(_reactRouterDom.Redirect, { to: {
+            pathname: '/login'
+          } });
+      } else {
+        return _react2.default.createElement(
+          'div',
           null,
-          'All Tasks'
-        ),
-        _react2.default.createElement(
-          'table',
-          { style: { width: '100%', 'borderCollapse': 'collapse' } },
+          _react2.default.createElement(_NavBar2.default, null),
           _react2.default.createElement(
-            'thead',
+            'h3',
             null,
+            'All Tasks'
+          ),
+          _react2.default.createElement(
+            'table',
+            { style: { width: '100%', 'borderCollapse': 'collapse' } },
             _react2.default.createElement(
-              'tr',
+              'thead',
               null,
-              tableHeads.map(function (tableHead, index) {
-                return _react2.default.createElement(
-                  'th',
-                  { colSpan: tableHead.colspan, style: { border: '1px solid #ddd' }, key: 'tableHead-' + index + '}' },
-                  tableHead.name
-                );
+              _react2.default.createElement(
+                'tr',
+                null,
+                tableHeads.map(function (tableHead, index) {
+                  return _react2.default.createElement(
+                    'th',
+                    { colSpan: tableHead.colspan, style: { border: '1px solid #ddd' }, key: 'tableHead-' + index + '}' },
+                    tableHead.name
+                  );
+                })
+              )
+            ),
+            _react2.default.createElement(
+              'tbody',
+              null,
+              tasks.map(function (task, index) {
+                return _react2.default.createElement(TaskElement, { task: task, key: 'task-' + index });
               })
             )
           ),
           _react2.default.createElement(
-            'tbody',
-            null,
-            tasks.map(function (task, index) {
-              return _react2.default.createElement(TaskElement, { task: task, key: 'task-' + index });
-            })
+            'div',
+            { style: { 'marginTop': '20px' } },
+            'Want to add New Task ',
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/addTask' },
+              'Add Task'
+            )
           )
-        ),
-        _react2.default.createElement(
-          'div',
-          { style: { 'marginTop': '20px' } },
-          'Want to add New Task ',
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/addTask' },
-            'Add Task'
-          )
-        )
-      );
+        );
+      }
     }
   }]);
 
