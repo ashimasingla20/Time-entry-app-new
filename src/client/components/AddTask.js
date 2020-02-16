@@ -6,9 +6,9 @@ const types = ['business', 'consultant', 'IT', 'leisure', 'Fitness'];
 class AddTask extends React.Component {
   constructor(props) {
     super(props);
-    this.state={
+    this.state = {
       name: '',
-      type:'',
+      type:'business',
       startTime: null,
       endTime: null,
       isAuth: false,
@@ -36,7 +36,12 @@ class AddTask extends React.Component {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     };
-    let data = this.state;
+    let data = {
+      name: this.state.name,
+      type: this.state.type,
+      startTime: this.state.startTime,
+      endTime: this.state.endTime
+    }
     axios.post(`http://localhost:4000/addTask`,{...data}, {
         headers: headers
       }).then((response) => {

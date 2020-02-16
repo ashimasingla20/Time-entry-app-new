@@ -697,7 +697,12 @@ var AddTask = function (_React$Component) {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + token
       };
-      var data = _this.state;
+      var data = {
+        name: _this.state.name,
+        type: _this.state.type,
+        startTime: _this.state.startTime,
+        endTime: _this.state.endTime
+      };
       _axios2.default.post('http://localhost:4000/addTask', _extends({}, data), {
         headers: headers
       }).then(function (response) {
@@ -709,7 +714,7 @@ var AddTask = function (_React$Component) {
 
     _this.state = {
       name: '',
-      type: '',
+      type: 'business',
       startTime: null,
       endTime: null,
       isAuth: false,
